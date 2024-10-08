@@ -1,7 +1,6 @@
 import React from "react";
 import logo from "../assets/images/praise sawa  (1).svg";
 import LineMark from "../assets/images/LineMark.svg";
-import waves from "../assets/images/Frame 28.png";
 import youtube from "../assets/images/youtube.svg";
 import facebook from "../assets/images/facebook.svg";
 import twitter from "../assets/images/twitter.svg";

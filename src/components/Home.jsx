@@ -2,9 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Intro from "./Intro";
-import PopularSongs from "./PopularSongs";
-import SearchIcon from "../assets/images/search icon.svg"; // Assuming you have the search icon
 import "./scroll.css"; // Assuming you have custom scroll styles
+import { FaSearch } from "react-icons/fa";
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -66,7 +65,7 @@ const Home = () => {
   return (
     <div className="z-2 px-[140px]">
       <h1 className="head_text text-center pt-[50px]">
-        Prise SAWA
+        Praise Sawa
         <br className="max-md:hidden" />
         <span className="bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent text-center">
           Translated & Transliterated Arabic Songs
@@ -86,7 +85,7 @@ const Home = () => {
             style={{ direction: "auto" }}
           />
           <button className="absolute left-3 top-1/2 transform -translate-y-1/2 w-[28px] h-[28px] flex items-center justify-center">
-            <img src={SearchIcon} alt="Search Icon" />
+            <FaSearch className="w-20 h-20 text-white" />
           </button>
           {showDropdown && searchResults.length > 0 && (
             <ul

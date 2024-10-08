@@ -15,11 +15,12 @@ const Overview = ({ song }) => {
   useEffect(() => {
     const fetchSongs = async () => {
       try {
-        const [arSongResponse, transliterationResponse, translationResponse] = await Promise.all([
-          axios.get(`/api/ArbSongs/getArbSongBySongID/${songID}`),
-          axios.get(`/api/FrankSongs/getFrankSongBySongID/${songID}`),
-          axios.get(`/api/ArbSongs/translateToEnglish/${songID}`)
-        ]);
+        const [arSongResponse, transliterationResponse, translationResponse] =
+          await Promise.all([
+            axios.get(`/api/ArbSongs/getArbSongBySongID/${songID}`),
+            axios.get(`/api/FrankSongs/getFrankSongBySongID/${songID}`),
+            axios.get(`/api/ArbSongs/translateToEnglish/${songID}`),
+          ]);
 
         setArSong(arSongResponse.data);
         setTransliteration(transliterationResponse.data);
@@ -58,62 +59,85 @@ const Overview = ({ song }) => {
   }
 
   return (
-    <div className="text-white p-6 bg-[#2a2b2e] mt-10">
-      <table className="w-full text-left table-auto border-collapse">
+    <div className="text-black p-6 bg-[#fff] mt-10">
+      <table className="w-full text-left table-auto border-collapse border border-black">
         <thead>
           <tr>
-            <th className="border px-4 py-2">Arabic</th>
-            <th className="border px-4 py-2">Transliteration</th>
-            <th className="border px-4 py-2">Translation</th>
+            <th className="border border-black px-4 py-2">Arabic</th>
+            <th className="border border-black px-4 py-2">Transliteration</th>
+            <th className="border border-black px-4 py-2">Translation</th>
           </tr>
         </thead>
         <tbody>
           {arSong.verses.map((verse, verseIndex) => (
             <React.Fragment key={verseIndex}>
               <tr key={verseIndex}>
-                <td className="border px-4 py-2">
+                <td className="border border-black px-4 py-10">
                   {verse.map((line, lineIndex) => (
                     <div
                       key={`${verseIndex}-${lineIndex}`}
                       className={`cursor-pointer p-4 rounded-lg transition-colors text-lg leading-loose shadow-md font-semibold ${
-                        activeVerseIndex === verseIndex && activeLineIndex === lineIndex
-                          ? "bg-[#FFBB02] text-black"
-                          : "hover:bg-[#404448]"
+                        activeVerseIndex === verseIndex &&
+                        activeLineIndex === lineIndex
+                          ? "bg-[#cdcdcd] text-black"
+                          : "hover:bg-[#a5a5a5]"
                       }`}
                       onClick={() => handleClick(verseIndex, lineIndex)}
-                      style={{ marginBottom: "10px" }}
+                      style={{
+                        marginBottom: "10px",
+                        height: "130px", // Set a fixed height for consistency
+                        display: "flex", // Use flexbox
+                        alignItems: "center", // Center text vertically
+                        justifyContent: "center", // Center text horizontally
+                      }}
                     >
                       {line}
                     </div>
                   ))}
                 </td>
-                <td className="border px-4 py-2">
+
+                <td className="border border-black px-4 py-10">
                   {transliteration.verses[verseIndex]?.map((line, lineIndex) => (
                     <div
                       key={`${verseIndex}-${lineIndex}`}
                       className={`cursor-pointer p-4 rounded-lg transition-colors text-lg leading-loose shadow-md font-semibold ${
-                        activeVerseIndex === verseIndex && activeLineIndex === lineIndex
-                          ? "bg-[#FFBB02] text-black"
-                          : "hover:bg-[#404448]"
+                        activeVerseIndex === verseIndex &&
+                        activeLineIndex === lineIndex
+                          ? "bg-[#cdcdcd] text-black"
+                          : "hover:bg-[#a5a5a5]"
                       }`}
                       onClick={() => handleClick(verseIndex, lineIndex)}
-                      style={{ marginBottom: "10px" }}
+                      style={{
+                        marginBottom: "10px",
+                        height: "130px", // Set a fixed height for consistency
+                        display: "flex", // Use flexbox
+                        alignItems: "center", // Center text vertically
+                        justifyContent: "center", // Center text horizontally
+                      }}
                     >
                       {line}
                     </div>
                   )) || "N/A"}
                 </td>
-                <td className="border px-4 py-2">
+
+                <td className="border border-black px-4 py-10">
                   {translation.verses[verseIndex]?.map((line, lineIndex) => (
                     <div
                       key={`${verseIndex}-${lineIndex}`}
                       className={`cursor-pointer p-4 rounded-lg transition-colors text-lg leading-loose shadow-md font-semibold ${
-                        activeVerseIndex === verseIndex && activeLineIndex === lineIndex
-                          ? "bg-[#FFBB02] text-black"
-                          : "hover:bg-[#404448]"
+                        activeVerseIndex === verseIndex &&
+                        activeLineIndex === lineIndex
+                          ? "bg-[#cdcdcd] text-black"
+                          : "hover:bg-[#a5a5a5]"
                       }`}
                       onClick={() => handleClick(verseIndex, lineIndex)}
-                      style={{ marginBottom: "10px" }}
+                      style={{
+                        marginBottom: "10px",
+                        height: "130px", // Set a fixed height for consistency
+                        display: "flex", // Use flexbox
+                        alignItems: "center", // Center text vertically
+                        justifyContent: "center", // Center text horizontally
+                      }}
                     >
                       {line}
                     </div>
