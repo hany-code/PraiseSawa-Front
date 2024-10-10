@@ -9,6 +9,7 @@ const Overview = ({ song }) => {
   const [error, setError] = useState(null);
   const [activeVerseIndex, setActiveVerseIndex] = useState(-1);
   const [activeLineIndex, setActiveLineIndex] = useState(-1);
+  const [activeChorusLineIndex, setActiveChorusLineIndex] = useState(-1);
 
   const { songID } = song;
 
@@ -46,6 +47,14 @@ const Overview = ({ song }) => {
     }
   };
 
+  const handleChorusClick = (lineIndex) => {
+    if (lineIndex === activeChorusLineIndex) {
+      setActiveChorusLineIndex(-1);
+    } else {
+      setActiveChorusLineIndex(lineIndex);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -69,6 +78,79 @@ const Overview = ({ song }) => {
           </tr>
         </thead>
         <tbody>
+          {/* Conditionally Render Chorus */}
+          {Array.isArray(arSong.chorus) && arSong.chorus.length > 0 && (
+            <tr>
+              <td className="border border-black px-4 py-10">
+                {arSong.chorus.map((line, lineIndex) => (
+                  <div
+                    key={`chorus-${lineIndex}`}
+                    className={`cursor-pointer p-4 rounded-lg transition-colors text-lg leading-loose shadow-md font-semibold ${
+                      activeChorusLineIndex === lineIndex
+                        ? "bg-[#cdcdcd] text-black"
+                        : "hover:bg-[#a5a5a5]"
+                    }`}
+                    onClick={() => handleChorusClick(lineIndex)}
+                    style={{
+                      marginBottom: "10px",
+                      height: "130px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {line}
+                  </div>
+                ))}
+              </td>
+              <td className="border border-black px-4 py-10">
+                {transliteration.chorus?.map((line, lineIndex) => (
+                  <div
+                    key={`transliteration-chorus-${lineIndex}`}
+                    className={`cursor-pointer p-4 rounded-lg transition-colors text-lg leading-loose shadow-md font-semibold ${
+                      activeChorusLineIndex === lineIndex
+                        ? "bg-[#cdcdcd] text-black"
+                        : "hover:bg-[#a5a5a5]"
+                    }`}
+                    onClick={() => handleChorusClick(lineIndex)}
+                    style={{
+                      marginBottom: "10px",
+                      height: "130px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {line || "N/A"}
+                  </div>
+                ))}
+              </td>
+              <td className="border border-black px-4 py-10">
+                {translation.chorus?.map((line, lineIndex) => (
+                  <div
+                    key={`translation-chorus-${lineIndex}`}
+                    className={`cursor-pointer p-4 rounded-lg transition-colors text-lg leading-loose shadow-md font-semibold ${
+                      activeChorusLineIndex === lineIndex
+                        ? "bg-[#cdcdcd] text-black"
+                        : "hover:bg-[#a5a5a5]"
+                    }`}
+                    onClick={() => handleChorusClick(lineIndex)}
+                    style={{
+                      marginBottom: "10px",
+                      height: "130px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {line || "N/A"}
+                  </div>
+                ))}
+              </td>
+            </tr>
+          )}
+
+          {/* Render Verses */}
           {arSong.verses.map((verse, verseIndex) => (
             <React.Fragment key={verseIndex}>
               <tr key={verseIndex}>
@@ -85,10 +167,10 @@ const Overview = ({ song }) => {
                       onClick={() => handleClick(verseIndex, lineIndex)}
                       style={{
                         marginBottom: "10px",
-                        height: "130px", // Set a fixed height for consistency
-                        display: "flex", // Use flexbox
-                        alignItems: "center", // Center text vertically
-                        justifyContent: "center", // Center text horizontally
+                        height: "130px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
                       {line}
@@ -97,27 +179,29 @@ const Overview = ({ song }) => {
                 </td>
 
                 <td className="border border-black px-4 py-10">
-                  {transliteration.verses[verseIndex]?.map((line, lineIndex) => (
-                    <div
-                      key={`${verseIndex}-${lineIndex}`}
-                      className={`cursor-pointer p-4 rounded-lg transition-colors text-lg leading-loose shadow-md font-semibold ${
-                        activeVerseIndex === verseIndex &&
-                        activeLineIndex === lineIndex
-                          ? "bg-[#cdcdcd] text-black"
-                          : "hover:bg-[#a5a5a5]"
-                      }`}
-                      onClick={() => handleClick(verseIndex, lineIndex)}
-                      style={{
-                        marginBottom: "10px",
-                        height: "130px", // Set a fixed height for consistency
-                        display: "flex", // Use flexbox
-                        alignItems: "center", // Center text vertically
-                        justifyContent: "center", // Center text horizontally
-                      }}
-                    >
-                      {line}
-                    </div>
-                  )) || "N/A"}
+                  {transliteration.verses[verseIndex]?.map(
+                    (line, lineIndex) => (
+                      <div
+                        key={`${verseIndex}-${lineIndex}`}
+                        className={`cursor-pointer p-4 rounded-lg transition-colors text-lg leading-loose shadow-md font-semibold ${
+                          activeVerseIndex === verseIndex &&
+                          activeLineIndex === lineIndex
+                            ? "bg-[#cdcdcd] text-black"
+                            : "hover:bg-[#a5a5a5]"
+                        }`}
+                        onClick={() => handleClick(verseIndex, lineIndex)}
+                        style={{
+                          marginBottom: "10px",
+                          height: "130px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {line || "N/A"}
+                      </div>
+                    )
+                  )}
                 </td>
 
                 <td className="border border-black px-4 py-10">
@@ -133,18 +217,17 @@ const Overview = ({ song }) => {
                       onClick={() => handleClick(verseIndex, lineIndex)}
                       style={{
                         marginBottom: "10px",
-                        height: "130px", // Set a fixed height for consistency
-                        display: "flex", // Use flexbox
-                        alignItems: "center", // Center text vertically
-                        justifyContent: "center", // Center text horizontally
+                        height: "130px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
-                      {line}
+                      {line || "N/A"}
                     </div>
-                  )) || "N/A"}
+                  ))}
                 </td>
               </tr>
-              {/* Separator line between verses */}
             </React.Fragment>
           ))}
         </tbody>

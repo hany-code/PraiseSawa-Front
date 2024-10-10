@@ -190,7 +190,7 @@ const Footer = () => {
                 alt="icon"
               />
               <div className="text-black text-base font-normal font-['Poppins'] capitalize leading-[13px]">
-                Praisemelodies.org
+                PraiseSawa.org
               </div>
             </div>
             <div className="flex items-center gap-3.5">

@@ -30,7 +30,7 @@ const ArSong = ({ song }) => {
                 className={`text-[#000] p-4 my-2 rounded-lg cursor-pointer transition-transform duration-300 ease-in-out transform relative ${
                   activeVerseIndex === -1 && activeLineIndex === index
                     ? "active-item"
-                    : "hover:bg-[#fff]"
+                    : "hover:bg-[#cdcdcd]"
                 }`}
                 onClick={() => handleClick(-1, index)}
               >
@@ -58,7 +58,7 @@ const ArSong = ({ song }) => {
                 className={`text-[#000] text-right my-2 rounded-lg cursor-pointer transition-transform duration-300 ease-in-out transform relative ${
                   activeVerseIndex === verseIndex && activeLineIndex === lineIndex
                     ? "active-item"
-                    : "hover:bg-[#fff]"
+                    : "hover:bg-[#cdcdcd]"
                 }`}
                 onClick={() => handleClick(verseIndex, lineIndex)}
               >
